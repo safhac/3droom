@@ -4,146 +4,9 @@
 <head>
   <meta charset="utf-8">
   <title></title>
+  <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
   <style media="screen">
-    html,
-    body,
-    div,
-    .wall,
-    .room {
-      margin: 0;
-      text-align: center;
-    }
 
-    .view3d {
-      perspective: 500px;
-      perspective-origin: 50% 50%;
-      display: inline-block;
-      text-align: center;
-    }
-
-    .room {
-      width: 100%;
-      height: 100%;
-      border: solid thin gray;
-      text-align: center;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: all 1s ease-in-out;
-      display: inline-block;
-    }
-
-    .wall {
-      position: absolute;
-      opacity: 0.5;
-      /*transform: translate3d(0, 0, 125px);*/
-    }
-
-    .center {
-      background-color: pink;
-      transform: translate3d(0, 0, -737px);
-      z-index: 2;
-    }
-
-    .top {
-      /*top: -36px;*/
-      background-color: green;
-      transform: rotateX( -90deg);
-      transform-origin: center 0%;
-    }
-
-    .floor {
-      bottom: 0px;
-      background-color: blue;
-      transform: rotateX( 90deg);
-      transform-origin: center bottom;
-      -webkit-transform-origin: center bottom;
-      /* Chrome, Safari, Opera */
-    }
-
-    .right {
-      right: 0px;
-      background-color: yellow;
-      /*background: url(img/windows_inside.jpg);*/
-      */ background-attachment: fixed;
-      background-position: -47px 0px;
-      background-size: 400px 400px;
-      transform: rotateY( -90deg);
-      transform-origin: 100% center;
-    }
-
-    .left {
-      /*left: -285px;*/
-      background-color: red;
-      /*background: url(img/windows_inside.jpg);*/
-      background-attachment: fixed;
-      background-position: -47px 0px;
-      background-size: 400px 400px;
-      transform: rotateY( 90deg);
-      transform-origin: 0% center;
-    }
-
-    .top,
-    .floor,
-    .center {
-      width: 100%;
-    }
-
-    .right,
-    .left {
-      width: 41%;
-    }
-
-    .top,
-    .floor,
-    .right,
-    .left {
-      height: 100%;
-    }
-
-    .center {
-      height: 50%;
-    }
-
-    .goleft:hover ~ .view3d .room {
-      transform: rotateY(-90deg) translate3d(0, 0, 125px);
-    }
-
-    .goright:hover ~ .view3d .room {
-      transform: rotateY(90deg) translate3d(0, 0, 125px);
-    }
-
-    .goleft,
-    .goright {
-      perspective: 500px;
-      position: absolute;
-      top: 33%;
-      width: 200px;
-      height: 100px;
-      z-index: 3;
-      border: solid thin gray;
-    }
-
-    .goleft {
-      left: 0px;
-    }
-
-    .goright {
-      right: 0px;
-    }
-
-    .closeup {
-      position: absolute;
-      width: 298px;
-      height: 99px;
-      top: 33%;
-      left: 40%;
-      border: solid thin gray;
-      z-index: 4;
-    }
-
-    .closeup:hover ~ .view3d .room {
-      transform: translate3d(0, 0, 370px);
-    }
   </style>
 </head>
 
@@ -153,7 +16,7 @@
   <div class="closeup"></div>
   <div class="view3d">
     <div class="room">
-      <div class="wall top">
+      <div id="ceil" class="wall top">
         <figure>top</figure>
       </div>
       <div class="wall floor">
@@ -165,26 +28,40 @@
       <div class="wall right">
         <figure>right</figure>
       </div>
-      <!-- <div class="wall center">
+      <div class="wall center">
         <figure>center</figure>
-      </div> -->
+      </div>
     </div>
 
   </div>
-  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-  <script type="text/javascript">
-    (function() {
-      var halfH = window.innerHeight / 2;
-      var halfW = window.innerWidth / 2;
 
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+
+  <script type="text/javascript">
+    (function startup() {
       $('.view3d').css('height', window.innerHeight);
       $('.view3d').css('width', window.innerWidth);
+      $('.room').css('height', window.innerHeight - 1);
+      $('.room').css('width', window.innerWidth - 1);
+      $('.top').css('height', window.innerHeight - 2);
+      $('.top').css('width', window.innerWidth - 2);
+      $('.floor').css('height', window.innerHeight - 2);
+      $('.floor').css('width', window.innerWidth - 2);
+      $('.center').css('height', window.innerHeight - 2);
+      $('.center').css('width', window.innerWidth - 2);
+      $('.center').css('transform', 'translate3d(0, 0, -' +   $('.center').height() +'px)');
+      $('.top').css('transform', 'rotateX( -90deg)');
+      $('.floor').css('transform', 'rotateX( 90deg)');
+      $('.left').css('width', $('.top').height());
+      $('.right').css('width', $('.top').height());
+      $('.closeup').css('height', $('.top').height() / 6);
+      $('.closeup').css('width', $('.top').height() / 6);
+      $('.closeup').css('border-radius', $('.closeup').height() / 2);
 
-      // $('.right').css('width', window.innerWidth / 4);
-      // $('.left').css('width', window.innerWidth / 4);
-      // $('.top').css('height', window.innerHeight / 4);
-      // $('.floor').css('height', window.innerHeight / 4);
-      // $('#left').css('background-size', len - 1, window.innerHeight);
+      $(window).resize(function() {
+        startup();
+      });
     })();
   </script>
 </body>

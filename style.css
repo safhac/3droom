@@ -1,0 +1,137 @@
+html, body, div, .wall, .room {
+  margin: 0;
+  text-align: center;
+}
+.view3d {
+  perspective: 500px;
+  perspective-origin: 50% 50%;
+  display: inline-block;
+  text-align: center;
+}
+.room {
+  border: solid thin gray;
+  text-align: center;
+  position: relative;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+  display: inline-block;
+}
+.wall {
+  position: absolute;
+  opacity: 0.5;
+}
+.center {
+  background-color: pink;
+  ms-transform: translate3d(0, 0, -737px);
+  webkit-transform: translate3d(0, 0, -737px);
+  transform: translate3d(0, 0, -737px);
+  z-index: 2;
+}
+.top {
+  background-color: green;
+  -webkit-transform-origin: center 0%;
+  transform-origin: center 0%;
+}
+.floor {
+  bottom: 0px;
+  background-color: blue;
+  -webkit-transform-origin: center bottom;
+  transform-origin: center bottom;
+}
+.right {
+  right: 0px;
+  /*background-color: yellow;*/
+  background: url(img/bright-office-windows.jpg) repeat-x;
+  background-position: 50% top;
+  background-size: 90% 135%;
+  -webkit-background-size: 90% 135%;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  -webkit-transform: rotateY( -90deg);
+  transform: rotateY( -90deg);
+  -webkit-transform-origin: 100% center;
+  transform-origin: 100% center;
+}
+.left {
+  /*background-color: red;*/
+  background: url(img/windows_inside.jpg) repeat-x;
+  background-position: -47px 0px;
+  background-size: 650px 100%;
+  /*-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/
+  -webkit-transform: rotateY( 90deg);
+  transform: rotateY( 90deg);
+  -webkit-transform-origin: 0% center;
+  transform-origin: 0% center;
+}
+.right, .left {
+  height: 100%;
+}
+
+
+.goleft:hover ~ .view3d .room {
+  -webkit-transform: rotateY(-45deg) translate3d(0, 0, 125px);
+  transform: rotateY(-45deg) translate3d(0, 0, 125px);
+}
+.goright:hover ~ .view3d .room {
+  -webkit-transform: rotateY(45deg) translate3d(0, 0, 125px);
+  transform: rotateY(45deg) translate3d(0, 0, 125px);
+}
+.goleft, .goright {
+  perspective: 500px;
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 40%;
+  z-index: 3;
+  translate3d(0, 0, 125px);
+  opacity: 0.1;
+}
+.goleft {
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+  border-right: 60px solid blue;
+}
+.goright {
+  right: 0;
+  border-top: 60px solid transparent;
+  border-bottom: 60px solid transparent;
+  border-left: 60px solid green;
+}
+.closeup {
+  position: absolute;
+  z-index: 4;
+  top: 40%;
+  left: 43%;
+  background: black;
+  background: radial-gradient(circle at 50% 120%, #81e8f6, #76deef 10%, #055194 80%, #062745 100%);
+  width: 150px;
+  height: 150px;
+  -moz-border-radius: 75px;
+  -webkit-border-radius: 75px;
+  border-radius: 75px;
+  opacity: 0.1;
+}
+.closeup:before {
+  background: radial-gradient(circle at 50% 0px, #ffffff, rgba(255, 255, 255, 0) 58%);
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+}
+.closeup:hover ~ .view3d .room {
+  -webkit-transform: translate3d(0, 0, 370px);
+  ms-transform: translate3d(0, 0, 370px);
+  transform: translate3d(0, 0, 370px);
+}
+.closeup:hover, .goright:hover, .goleft:hover {
+  opacity: 0.5;
+}
+.closeup, .goright, .goleft {
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
+}
